@@ -16,9 +16,35 @@ function announceMove(text) {
   window.speechSynthesis.speak(msg);
 }
 
+function humanizeTextCodes(text) {
+  const patterns = [
+    // vowels
+    { regex: /\a/gi, replace: 'A' },
+    { regex: /\e/gi, replace: 'E' },
+    // actions
+    { regex: /\x/g, replace: ', takes ' },
+    { regex: /O-O/gi, replace: 'Kingside castle' },
+    { regex: /O-O-O/gi, replace: 'Queenside castle' },
+    // pawn promote
+    { regex: /=Q/g, replace: ', promote to Queen' },
+    { regex: /=R/g, replace: ', promote to Rook' },
+    { regex: /=B/g, replace: ', promote to Bishop' },
+    { regex: /=N/g, replace: ', promote to Knight' },
+    // check
+    { regex: /\+/g, replace: ', check' },
+    { regex: /\#/g, replace: ', checkmate' },
+  ];
+
+  patterns.forEach(({ regex, replace }) => {
+    text = text.replace(regex, replace);
+  });
+
+  return text;
+}
+
 // Function to parse and announce the move
 function parseAndAnnounceSpan(span) {
-  let text = span.innerText.trim().replace('x', ' take ');
+  let text = humanizeTextCodes(span.innerText.trim())
 
   const figurineSpan = span.querySelector('.icon-font-chess');
 
