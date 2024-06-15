@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Chess Move Announcer",
+  "version": "1.0",
+  "description": "Announces chess moves when new span elements are added.",
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}
