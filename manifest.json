@@ -1,16 +1,32 @@
 {
   "manifest_version": 3,
-  "name": "Chess Move Announcer",
-  "version": "1.0",
-  "description": "Announces chess moves when new span elements are added.",
-  "permissions": [
-    "activeTab",
-    "scripting"
-  ],
+  "name": "Chess.com Moves Announcer",
+  "version": "1.1",
+  "description": "Announces chess moves on chess.com.",
+  "action": {
+    "default_title": "Enable move announcements on Chess.com",
+    "default_icon": {
+      "16": "icon16_disabled.png",
+      "48": "icon48_disabled.png",
+      "64": "icon64_disabled.png",
+      "128": "icon128_disabled.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["content.js"]
+      "matches": ["https://www.chess.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_start"
     }
-  ]
+  ],
+  "permissions": ["activeTab", "scripting", "storage"],
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "64": "icon64.png",
+    "128": "icon128.png"
+  }
 }

@@ -44,10 +44,9 @@ function humanizeTextCodes(text) {
 
 // Function to parse and announce the move
 function parseAndAnnounceSpan(span) {
-  let text = humanizeTextCodes(span.innerText.trim())
+  let text = humanizeTextCodes(span.innerText.trim());
 
   const figurineSpan = span.querySelector('.icon-font-chess');
-
   if (figurineSpan) {
     const figurine = figurineSpan.getAttribute('data-figurine');
     const name = figurineToName(figurine);
@@ -72,14 +71,32 @@ function handleNewNode(node) {
   }
 }
 
-// Create a MutationObserver to monitor for new elements
 const observer = new MutationObserver((mutations) => {
-  mutations.forEach((mutation) => {
-    mutation.addedNodes.forEach((node) => {
-      handleNewNode(node);
-    });
+  chrome.storage.local.get("enabled", (result) => {
+    if (chrome.runtime.lastError) {
+      console.error("Error accessing storage: ", chrome.runtime.lastError);
+      return;
+    }
+
+    if (result.enabled) {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          handleNewNode(node);
+        });
+      });
+    }
   });
 });
 
+// Function to start observing the document body
+function startObserving() {
+  if (document.body) {
+    observer.observe(document.body, { childList: true, subtree: true });
+  } else {
+    // Retry if document.body is not available yet
+    setTimeout(startObserving, 100);
+  }
+}
+
 // Start observing the document body for child list changes
-observer.observe(document.body, { childList: true, subtree: true });
+startObserving();
