@@ -17,7 +17,7 @@ chrome.action.onClicked.addListener((tab) => {
         };
 
         chrome.action.setIcon({ path: iconPath });
-        chrome.action.setTitle({ title: enabled ? 'Disable announcements on Chess.com' : 'Enable move announcements on Chess.com' });
+        chrome.action.setTitle({ title: enabled ? 'Disable move announcements on Chess.com' : 'Enable move announcements on Chess.com' });
         chrome.tabs.reload(tab.id);  // Reload the tab to apply changes
     });
 });
