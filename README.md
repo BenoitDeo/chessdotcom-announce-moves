@@ -1,5 +1,5 @@
-Enhance your experience on Chess.com with Chess.com Moves Announcer, designed to improve accessibility through voice announcements of game moves. 
-This free google chrome extension allows you to enable or disable voice announcements effortlessly by clicking the extension icon in your toolbar.
+Enhance experience on Chess.com through voice announcements of game moves.  
+Designed to improve accessibility this chrome extension can be enabled or disabled on toolbar icon click.
 
 How It Works:
 
